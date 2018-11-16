@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapstoneProject", "CapstoneProject\CapstoneProject.csproj", "{80328062-268B-40AB-9481-F9AA8329C54F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1173A1B2-E52D-4CD9-87AB-9EC44FC86C0A}"
+	ProjectSection(SolutionItems) = preProject
+		QuickStart.cs = QuickStart.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
