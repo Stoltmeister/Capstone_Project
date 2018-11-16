@@ -14,20 +14,20 @@ namespace CapstoneProject.Controllers
     {
         public IActionResult Index()
         {
-            //Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\ArtofShell\Google\Vision\GoogleCred.json");
-            // Instantiates a client
-            List<string> tags = new List<string>();
-            var client = ImageAnnotatorClient.Create();
-            // Load the image file into memory
-            var image = Image.FromFile("wwwroot/images/poster.jpg");
-            // Performs label detection on the image file
-            var response = client.DetectText(image);
-            foreach (var annotation in response)
-            {
-                if (annotation.Description != null)
-                    tags.Add(annotation.Description);
-            }
-            ViewBag.Tags = tags;
+            
+            //// Instantiates a client
+            //List<string> tags = new List<string>();
+            //var client = ImageAnnotatorClient.Create();
+            //// Load the image file into memory
+            //var image = Image.FromFile("wwwroot/images/poster.jpg");
+            //// Performs label detection on the image file
+            //var response = client.DetectText(image);
+            //foreach (var annotation in response)
+            //{
+            //    if (annotation.Description != null)
+            //        tags.Add(annotation.Description);
+            //}
+            //ViewBag.Tags = tags;
             return View();
         }
 
