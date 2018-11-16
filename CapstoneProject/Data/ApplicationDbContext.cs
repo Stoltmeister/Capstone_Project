@@ -15,5 +15,6 @@ namespace CapstoneProject.Data
         }
         
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<StandardUser> StandardUsers { get; set; }
     }
 }

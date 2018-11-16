@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CapstoneProject.Data;
 using CapstoneProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,19 +22,22 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _context = context;
         }
 
         [BindProperty]
@@ -86,11 +90,12 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
                     if (true /*Add methods to check for which role the user should be. Currently, there is only one role*/)
                     {
                         await _userManager.AddToRoleAsync(user, StaticDetails.StandardEndUser);
-                        //StandardUser newStandardUser = new StandardUser();
+                        StandardUser newStandardUser = new StandardUser();
+                        // do we have the email yet when doing fb login?
                         //newStandardUser.Email = user.Email;
-                        //newStandardUser.ApplicationUser = user;
-                        //await _context.StandardUsers.AddAsync(newStandardUser);
-                        //await _context.SaveChangesAsync();
+                        newStandardUser.ApplicationUser = user;
+                        await _context.StandardUsers.AddAsync(newStandardUser);
+                        await _context.SaveChangesAsync();
                     }
                     else if (false /*other roles go here*/)
                     {
