@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CapstoneProject.Data;
+using CapstoneProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +20,21 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ExternalLoginModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            ILogger<ExternalLoginModel> logger)
+            ILogger<ExternalLoginModel> logger,
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _context = context;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -78,6 +86,7 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
             if (result.Succeeded)
             {
+                // check if standard user entry exists if not create one
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
@@ -118,9 +127,21 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync(StaticDetails.StandardEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticDetails.StandardEndUser));
+                    }
+                    await _userManager.AddToRoleAsync(user, StaticDetails.StandardEndUser);
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
+                        var standardUserEntry = _context.StandardUsers.Where(s => s.ApplicationUserId == user.Id).ToList();
+                        if (standardUserEntry.Count() == 0)
+                        {
+                            var standardUser = new StandardUser() { Email = user.Email, ApplicationUserId = user.Id };
+                            await _context.StandardUsers.AddAsync(standardUser);
+                            await _context.SaveChangesAsync();
+                        }
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return LocalRedirect(returnUrl);
