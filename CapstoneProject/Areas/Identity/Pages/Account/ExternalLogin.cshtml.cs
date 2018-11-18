@@ -123,7 +123,7 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -138,6 +138,7 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
                         var standardUserEntry = _context.StandardUsers.Where(s => s.ApplicationUserId == user.Id).ToList();
                         if (standardUserEntry.Count() == 0)
                         {
+                            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                             var standardUser = new StandardUser() { Email = user.Email, ApplicationUserId = user.Id };
                             await _context.StandardUsers.AddAsync(standardUser);
                             await _context.SaveChangesAsync();

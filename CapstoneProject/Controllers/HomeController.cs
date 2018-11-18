@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CapstoneProject.Models;
 using Google.Cloud.Vision.V1;
-
+using System.Security.Claims;
 
 namespace CapstoneProject.Controllers
 {
@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         public IActionResult Index()
         {
-            
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //// Instantiates a client
             //List<string> tags = new List<string>();
             //var client = ImageAnnotatorClient.Create();
