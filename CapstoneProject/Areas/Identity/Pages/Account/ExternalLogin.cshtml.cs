@@ -138,7 +138,6 @@ namespace CapstoneProject.Areas.Identity.Pages.Account
                         var standardUserEntry = _context.StandardUsers.Where(s => s.ApplicationUserId == user.Id).ToList();
                         if (standardUserEntry.Count() == 0)
                         {
-                            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                             var standardUser = new StandardUser() { Email = user.Email, ApplicationUserId = user.Id };
                             await _context.StandardUsers.AddAsync(standardUser);
                             await _context.SaveChangesAsync();
