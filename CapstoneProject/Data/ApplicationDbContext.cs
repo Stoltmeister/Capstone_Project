@@ -11,11 +11,20 @@ namespace CapstoneProject.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {            
+        {
         }
-        
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<StandardUser> StandardUsers { get; set; }
         public DbSet<Food> Food { get; set; }
+        public DbSet<NonVeganFood> NonVeganFoods { get; set; }
+        public DbSet<UserFood> UserFoods { get; set; }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    // get file with each of the foods as strings to do a for each loop to create all them
+        //    // then out of the loop set the ones as questionable if needed or do a seperate file for those
+        //}
     }
 }

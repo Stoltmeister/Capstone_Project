@@ -1,0 +1,31 @@
+﻿@model CapstoneProject.Models.FoodViewModel
+@{
+    ViewData["Title"] = "IngredientsResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="container">
+        @Html.DisplayFor(Model => Model.Food.IngredientsPicture)
+        <br>
+        <h2>IngredientsResults</h2>
+        @if(Model.IsVegan)
+        {
+            <strong>No non-vegan ingredients detected!</strong>
+        }
+        else
+        {
+            <p>Non vegan ingredients found:</p> <br />
+            <ul>
+            @foreach (string s in Model.KeyWords)
+            {
+                <li>@Html.Display(s)</li>
+            }
+            </ul>     
+        }; 
+        @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodModel = Model })
+    </div>
+</div>
+
+

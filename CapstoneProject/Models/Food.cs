@@ -11,8 +11,10 @@ namespace CapstoneProject.Models
         [Key]
         public string Id { get; set; }
         public byte[] IngredientsPicture { get; set; }
+        [Display(Name ="Food Picture")]
         public byte[] ProductPicture { get; set; }
         public string Name { get; set; }
+        public string Notes { get; set; }
         public bool IsVegan { get; set; }
     }
 }

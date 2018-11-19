@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CapstoneProject.Models.Food>
+
+@{
+    ViewData["Title"] = "UserFoods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserFoods</h2>
+
+<p>
+    <a asp-action="CheckIngredients">Check Another Food</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IngredientsPicture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPicture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsVegan)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IngredientsPicture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPicture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsVegan)
+            </td>
+            <td>                
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

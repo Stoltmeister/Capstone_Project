@@ -10,5 +10,6 @@ namespace CapstoneProject.Models
     {
         [Key]
         public string Id { get; set; }
+        public string Keyword { get; set; }        
     }
 }

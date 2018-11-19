@@ -4,14 +4,16 @@ using CapstoneProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CapstoneProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181119154405_removing isQuestionable from non-vegan foods")]
+    partial class removingisQuestionablefromnonveganfoods
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +31,6 @@ namespace CapstoneProject.Data.Migrations
                     b.Property<bool>("IsVegan");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("Notes");
 
                     b.Property<byte[]>("ProductPicture");
 
@@ -71,24 +71,6 @@ namespace CapstoneProject.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("StandardUsers");
-                });
-
-            modelBuilder.Entity("CapstoneProject.Models.UserFood", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FoodId");
-
-                    b.Property<string>("StandardUserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FoodId");
-
-                    b.HasIndex("StandardUserId");
-
-                    b.ToTable("UserFoods");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -273,17 +255,6 @@ namespace CapstoneProject.Data.Migrations
                     b.HasOne("CapstoneProject.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("CapstoneProject.Models.UserFood", b =>
-                {
-                    b.HasOne("CapstoneProject.Models.Food", "Food")
-                        .WithMany()
-                        .HasForeignKey("FoodId");
-
-                    b.HasOne("CapstoneProject.Models.StandardUser", "StandardUser")
-                        .WithMany()
-                        .HasForeignKey("StandardUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
