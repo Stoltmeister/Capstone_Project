@@ -12,26 +12,30 @@
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
         }
 
-        <img src="@imgSrc" />
+        <img src="@imgSrc"/>
         <br>
-        <h2>IngredientsResults</h2>
-        
+        <h2>Results</h2>
+
         @if (Model.IsVegan)
         {
-            <strong>No non-vegan ingredients detected!</strong>
+            <h4 class="label-success">No non-vegan ingredients detected!</h4>
+            <br /><br />
         }
         else
         {
-            <strong>Non-vegan ingredients detected!</strong>
-            <ul>
-                @foreach (string s in Model.KeyWords)
-                {
-                    <li>@s</li>
-                }
-            </ul>
+            <div class="col-md-4">
+                <h4 class="label-danger">Non-vegan ingredients detected :</h4>
+                <ul>
+                    @foreach (string s in Model.KeyWords)
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+            </div>
         }
-        @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodModel = Model })
-    </div>
+        </div>
 </div>
+        @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodModel = Model }, new { @class = "btn btn-primary btn-large" })
+
 
 

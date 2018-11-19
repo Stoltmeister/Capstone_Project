@@ -71,16 +71,16 @@ namespace CapstoneProject.Controllers
             // Instantiates a client
             List<string> ingredients = new List<string>();
             List<string> foundProblems = new List<string>();
-            //var client = ImageAnnotatorClient.Create();
-            //// Load the image file into memory
-            //var image = Image.FromBytes(food.IngredientsPicture);
-            //// Performs label detection on the image file
-            //var response = client.DetectText(image);
-            //foreach (var annotation in response)
-            //{
-            //    if (annotation.Description != null)
-            //        ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
-            //}
+            var client = ImageAnnotatorClient.Create();
+            // Load the image file into memory
+            var image = Image.FromBytes(food.IngredientsPicture);
+            // Performs label detection on the image file
+            var response = client.DetectText(image);
+            foreach (var annotation in response)
+            {
+                if (annotation.Description != null)
+                    ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
+            }
             foreach (string i in ingredients)
             {
                 if (_context.NonVeganFoods.Any(f => f.Keyword.ToLower() == i.ToLower()))
@@ -115,14 +115,14 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveFood([Bind("Id,Name,IngredientsPicture,ProductPicture,IsVegan,Notes")] Food newFood, IFormFile picture)
         {
-            newFood = await StorePicture(newFood, picture, true);
-            if (ModelState.IsValid)
+            newFood = await StorePicture(newFood, picture, false);
+            if (!ModelState.IsValid)
             {
-                await _context.Food.AddAsync(newFood);
+                throw new ArgumentException();
             }
             UserFood userFood = new UserFood() { StandardUserId = GetStandardUserId(), Food = newFood };
-            await _context.UserFoods.AddAsync(userFood);
             await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
             return RedirectToAction("UserFoods");
         }
 
