@@ -16,6 +16,6 @@ namespace CapstoneProject.Data
         
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<StandardUser> StandardUsers { get; set; }
-        public DbSet<CapstoneProject.Models.Food> Food { get; set; }
+        public DbSet<Food> Food { get; set; }
     }
 }
