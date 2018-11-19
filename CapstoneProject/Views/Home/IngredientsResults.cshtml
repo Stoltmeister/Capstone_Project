@@ -7,23 +7,29 @@
 
 <div class="row">
     <div class="container">
-        @Html.DisplayFor(Model => Model.Food.IngredientsPicture)
+        @{
+            var base64 = Convert.ToBase64String(Model.Food.IngredientsPicture);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+
+        <img src="@imgSrc" />
         <br>
         <h2>IngredientsResults</h2>
-        @if(Model.IsVegan)
+        @Model
+        @if (Model.IsVegan)
         {
             <strong>No non-vegan ingredients detected!</strong>
         }
         else
         {
-            <p>Non vegan ingredients found:</p> <br />
+            <strong>Non-vegan ingredients detected!</strong>
             <ul>
-            @foreach (string s in Model.KeyWords)
-            {
-                <li>@Html.Display(s)</li>
-            }
-            </ul>     
-        }; 
+                @foreach (string s in Model.KeyWords)
+                {
+                    <li>@s</li>
+                }
+            </ul>
+        }
         @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodModel = Model })
     </div>
 </div>

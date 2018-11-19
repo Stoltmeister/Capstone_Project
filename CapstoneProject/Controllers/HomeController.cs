@@ -21,7 +21,14 @@ namespace CapstoneProject.Controllers
         {
             _context = context;
         }
-    
+
+        private string GetStandardUserId()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); //Make these lines a function?
+            var standardUserId = _context.StandardUsers.Where(s => s.ApplicationUserId == userId).Select(u => u.Id).Single();
+            return standardUserId;
+        }
+
         private async Task<Food> StorePicture(Food food, IFormFile picture, bool IsIngredientsPicture)
         {
             if (picture != null)
@@ -37,13 +44,12 @@ namespace CapstoneProject.Controllers
                     {
                         food.ProductPicture = stream.ToArray();
                     }
-                }                
+                }
             }
             return food;
         }
-            public IActionResult Index()
+        public IActionResult Index()
         {
-            
             return RedirectToAction("CheckIngredients");
             return View();
         }
@@ -71,18 +77,18 @@ namespace CapstoneProject.Controllers
             foreach (var annotation in response)
             {
                 if (annotation.Description != null)
-                    ingredients.Add(annotation.Description);
+                    ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
             }
             foreach (string i in ingredients)
             {
-                if (nonVeganFoods.Contains(i))
+                if (_context.NonVeganFoods.Any(f => f.Keyword.ToLower() == i.ToLower()))
                 {
                     food.IsVegan = false;
                     foundProblems.Add(i);
                 }
                 // Questionabe foods check?
             }
-            return RedirectToAction("IngredientsResults", "Home", new { foodEntry = food, wordsFound = foundProblems });            
+            return RedirectToAction("IngredientsResults", "Home", new { foodEntry = food, wordsFound = foundProblems });
         }
 
         public IActionResult IngredientsResults(Food foodEntry, List<string> wordsFound)
@@ -92,24 +98,26 @@ namespace CapstoneProject.Controllers
             {
                 newFood.IsVegan = true;
             }
+            else
+            {
+                newFood.KeyWords = newFood.KeyWords.Distinct().ToList();
+            }
             return View(newFood);
         }
         public IActionResult SaveFood(FoodViewModel foodModel)
-        {            
+        {
             return View(foodModel.Food);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveFood([Bind("Id,Name,IngredientsPicture,ProductPicture,IsVegan,Notes")] Food newFood, IFormFile picture)
-        {            
+        {
             newFood = await StorePicture(newFood, picture, true);
             if (ModelState.IsValid)
             {
-                await _context.Food.AddAsync(newFood);                
+                await _context.Food.AddAsync(newFood);
             }
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); //Make these lines a function?
-            var standardUserId = _context.StandardUsers.Where(s => s.ApplicationUserId == userId).Select(u => u.Id).Single();
-            UserFood userFood = new UserFood() { StandardUserId = standardUserId, Food = newFood };
+            UserFood userFood = new UserFood() { StandardUserId = GetStandardUserId(), Food = newFood };
             await _context.UserFoods.AddAsync(userFood);
             await _context.SaveChangesAsync();
             return RedirectToAction("UserFoods");
@@ -117,7 +125,8 @@ namespace CapstoneProject.Controllers
 
         public IActionResult UserFoods()
         {
-            return View();
+            var userFoods = _context.UserFoods.Where(u => u.StandardUserId == GetStandardUserId()).Select(f => f.Food).ToList();
+            return View(userFoods);
         }
         public IActionResult About()
         {
