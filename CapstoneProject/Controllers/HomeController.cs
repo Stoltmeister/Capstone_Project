@@ -7,27 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 using CapstoneProject.Models;
 using Google.Cloud.Vision.V1;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace CapstoneProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private async Task<Food> StorePicture(Food food, IFormFile picture)
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //// Instantiates a client
-            //List<string> tags = new List<string>();
-            //var client = ImageAnnotatorClient.Create();
-            //// Load the image file into memory
-            //var image = Image.FromFile("wwwroot/images/poster.jpg");
-            //// Performs label detection on the image file
-            //var response = client.DetectText(image);
-            //foreach (var annotation in response)
-            //{
-            //    if (annotation.Description != null)
-            //        tags.Add(annotation.Description);
-            //}
-            //ViewBag.Tags = tags;
+            if (picture != null)
+            {
+                using (var stream = new MemoryStream())
+                {
+                    await picture.CopyToAsync(stream);
+                    food.IngredientsPicture = stream.ToArray();
+                }                
+            }
+            return food;
+        }
+            public IActionResult Index()
+        {
+            
             return RedirectToAction("CheckIngredients");
             return View();
         }
@@ -37,12 +38,30 @@ namespace CapstoneProject.Controllers
             Food newFood = new Food();
             return View(newFood);
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult CheckIngredients()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckIngredients(Food food, IFormFile picture)
+        {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            food = await StorePicture(food, picture);
+            // Instantiates a client
+            List<string> ingredients = new List<string>();
+            var client = ImageAnnotatorClient.Create();
+            // Load the image file into memory
+            var image = Image.FromBytes(food.IngredientsPicture);
+            // Performs label detection on the image file
+            var response = client.DetectText(image);
+            foreach (var annotation in response)
+            {
+                if (annotation.Description != null)
+                    ingredients.Add(annotation.Description);
+            }
+            foreach (string i in ingredients)
+            {
+                
+            }
+            return View();
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
