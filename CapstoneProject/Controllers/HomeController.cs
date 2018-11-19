@@ -65,20 +65,22 @@ namespace CapstoneProject.Controllers
         {
             //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             food = await StorePicture(food, picture, true);
+            await _context.Food.AddAsync(food);
+            await _context.SaveChangesAsync();
             var nonVeganFoods = _context.NonVeganFoods.Select(f => f.Keyword).ToList();
             // Instantiates a client
             List<string> ingredients = new List<string>();
             List<string> foundProblems = new List<string>();
-            var client = ImageAnnotatorClient.Create();
-            // Load the image file into memory
-            var image = Image.FromBytes(food.IngredientsPicture);
-            // Performs label detection on the image file
-            var response = client.DetectText(image);
-            foreach (var annotation in response)
-            {
-                if (annotation.Description != null)
-                    ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
-            }
+            //var client = ImageAnnotatorClient.Create();
+            //// Load the image file into memory
+            //var image = Image.FromBytes(food.IngredientsPicture);
+            //// Performs label detection on the image file
+            //var response = client.DetectText(image);
+            //foreach (var annotation in response)
+            //{
+            //    if (annotation.Description != null)
+            //        ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
+            //}
             foreach (string i in ingredients)
             {
                 if (_context.NonVeganFoods.Any(f => f.Keyword.ToLower() == i.ToLower()))
@@ -88,11 +90,12 @@ namespace CapstoneProject.Controllers
                 }
                 // Questionabe foods check?
             }
-            return RedirectToAction("IngredientsResults", "Home", new { foodEntry = food, wordsFound = foundProblems });
+            return RedirectToAction("IngredientsResults", "Home", new { foodID = food.Id, wordsFound = foundProblems });
         }
 
-        public IActionResult IngredientsResults(Food foodEntry, List<string> wordsFound)
+        public IActionResult IngredientsResults(string foodID, List<string> wordsFound)
         {
+            var foodEntry = _context.Food.Where(f => f.Id == foodID).SingleOrDefault();
             FoodViewModel newFood = new FoodViewModel() { Food = foodEntry, KeyWords = wordsFound, IsVegan = false };
             if (wordsFound.Count == 0)
             {
