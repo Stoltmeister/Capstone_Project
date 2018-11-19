@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         public IActionResult Index()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //// Instantiates a client
             //List<string> tags = new List<string>();
             //var client = ImageAnnotatorClient.Create();
@@ -28,9 +28,21 @@ namespace CapstoneProject.Controllers
             //        tags.Add(annotation.Description);
             //}
             //ViewBag.Tags = tags;
+            return RedirectToAction("CheckIngredients");
             return View();
         }
 
+        public IActionResult CheckIngredients()
+        {
+            Food newFood = new Food();
+            return View(newFood);
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult CheckIngredients()
+        //{
+        //    return View();
+        //}
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
