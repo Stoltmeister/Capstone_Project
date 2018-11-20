@@ -24,7 +24,7 @@ namespace CapstoneProject.Controllers
 
         private string GetStandardUserId()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var standardUserId = _context.StandardUsers.Where(s => s.ApplicationUserId == userId).Select(u => u.Id).Single();
             return standardUserId;
         }
@@ -120,14 +120,16 @@ namespace CapstoneProject.Controllers
         public async Task<IActionResult> SaveFood([Bind("Id,Name,IngredientsPicture,ProductPicture,IsVegan,Notes")] Food newFood, IFormFile picture)
         {
             var savedFood = _context.Food.Where(f => f.Id == newFood.Id).SingleOrDefault();
-            savedFood = await StorePicture(savedFood, picture, false);
+            using (var stream = new MemoryStream())
+            {
+                await picture.CopyToAsync(stream);
+                savedFood.ProductPicture = stream.ToArray();
+            }
             savedFood.Notes = newFood.Notes;
-            savedFood.Name = newFood.Name;            
+            savedFood.Name = newFood.Name;
             UserFood userFood = new UserFood() { StandardUserId = GetStandardUserId(), Food = savedFood };
             await _context.UserFoods.AddAsync(userFood);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-            // return to users saved foods or all saved foods
             return RedirectToAction("UserFoods");
         }
 
@@ -135,6 +137,12 @@ namespace CapstoneProject.Controllers
         {
             var userFoods = _context.UserFoods.Where(u => u.StandardUserId == GetStandardUserId()).Select(f => f.Food).ToList();
             return View(userFoods);
+        }
+
+        public IActionResult AllFoods()
+        {
+            var allFoods = _context.UserFoods.Select(f => f.Food).ToList();
+            return View(allFoods);
         }
         public IActionResult About()
         {

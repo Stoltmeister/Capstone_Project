@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<CapstoneProject.Models.Food>
 
 @{
-    ViewData["Title"] = "UserFoods";
+    ViewData["Title"] = "AllFoods";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>UserFoods</h2>
+<h2>AllFoods</h2>
 
-<p>
-    <a asp-action="CheckIngredients">Check Another Food</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -39,29 +37,29 @@
 
             var base642 = Convert.ToBase64String(item.ProductPicture);
             var pPic = String.Format("data:image/gif;base64,{0}", base642);
-
-            <tr>
-                <td>
-                    <img src="@iPic" />
-                </td>
-                <td>
-                    <img src="@pPic" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsVegan)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            
+        <tr>
+            <td>
+                <img src="@iPic" />
+            </td>
+            <td>
+                <img src="@pPic" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsVegan)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
