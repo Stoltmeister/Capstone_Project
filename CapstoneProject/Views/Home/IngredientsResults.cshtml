@@ -12,11 +12,10 @@
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
         }
 
-        <img src="@imgSrc"/>
+        <img src="@imgSrc" />
         <br>
         <h2>Results</h2>
-
-        @if (Model.IsVegan)
+        @if (Model.Food.IsVegan)
         {
             <h4 class="label-success">No non-vegan ingredients detected!</h4>
             <br /><br />
@@ -33,9 +32,18 @@
                 </ul>
             </div>
         }
-        </div>
+    </div>
+
 </div>
-        @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodModel = Model }, new { @class = "btn btn-primary btn-large" })
+@if (User.IsInRole("Standard"))
+{
+    @Html.ActionLink("Save to My Foods", "SaveFood", "Home", new { foodId = Model.FoodId }, new { @class = "btn btn-primary btn-large" })
+}
+else
+{
+    <p>Login with Facebook/Google and save your scanned foods! <a asp-area="Identity" asp-page="/Account/Login">Login/Register</a></p>
+}
+
 
 
 

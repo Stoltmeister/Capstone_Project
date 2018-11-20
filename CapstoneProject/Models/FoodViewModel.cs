@@ -7,8 +7,8 @@ namespace CapstoneProject.Models
 {
     public class FoodViewModel
     {
-        public bool IsVegan { get; set; }
         public Food Food { get; set; }
         public List<string> KeyWords { get; set; }
+        public string FoodId { get; set; }
     }
 }
