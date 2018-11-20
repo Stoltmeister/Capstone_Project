@@ -24,13 +24,13 @@ namespace CapstoneProject.Controllers
         public RecipeController()
         {
             client = new HttpClient();
-            allRecipesPath = "http://api.yummly.com/v1/api/recipes?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7&your _search_parameters=%26q=vegan%26allowedDiet[]=390^Vegan";
+            allRecipesPath = "http://api.yummly.com/v1/api/recipes?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7&your_search_parameters=%26q=vegan%26allowedDiet[]=390^Vegan";
             recipePath = "http://api.yummly.com/v1/api/recipe/Vegan-Curried-Rice-2319743?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7"; // needs to be updated for each recipe
         }
         public IActionResult Index()
         {
-            var allRecipes = GetAllRecipes(allRecipesPath);
-            return View(allRecipes);
+            var allRecipes = GetAllRecipes(allRecipesPath).Result;            
+            return View(allRecipes.matches);
         }
 
         static async Task<Recipe> GetRecipeAsync(string path)
@@ -44,18 +44,18 @@ namespace CapstoneProject.Controllers
             return recipe;
         }
 
-        static async Task<List<Recipe>> GetAllRecipes(string path)
+        static async Task<RootObject> GetAllRecipes(string path)
         {
-            List<Recipe> recipesOK = null;            
+            RootObject allMatches = new RootObject();
             HttpResponseMessage response = await client.GetAsync(path);
             
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 //Recipe recipe = await response.Content.ReadAsAsync<Recipe>();
-                RootObject allMatches = JsonConvert.DeserializeObject<RootObject>(result); //response.Content.ReadAsAsync<Recipe>();
+                allMatches = JsonConvert.DeserializeObject<RootObject>(result); //response.Content.ReadAsAsync<Recipe>();
             }
-            return recipesOK;
+            return allMatches;
         }
     }
 }

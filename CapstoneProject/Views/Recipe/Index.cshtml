@@ -1,10 +1,39 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model IEnumerable<CapstoneProject.Models.Match>
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-<h2>Index</h2>
+    <h2>Index</h2>
 
-<script src=""></script>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Picture
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.recipeName)
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {                
+
+                <tr>
+                    <td>
+                        <a asp-action="Index"><img src="@item.smallImageUrls.First()" /></a>
+                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.recipeName)
+                    </td>                   
+                    <td>
+                        (Link to Add to my Recipes)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
