@@ -50,7 +50,7 @@ namespace CapstoneProject.Controllers
         }
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Recipe");
+            return RedirectToAction("Index", "Restaurant");
             return View();
         }
 

@@ -20,6 +20,7 @@ namespace CapstoneProject.Data
         public DbSet<NonVeganFood> NonVeganFoods { get; set; }
         public DbSet<UserFood> UserFoods { get; set; }
         public DbSet<CapstoneProject.Models.Recipe> Recipe { get; set; }
+        public DbSet<CapstoneProject.Models.City> City { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);
