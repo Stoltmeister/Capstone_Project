@@ -10,5 +10,6 @@ namespace CapstoneProject.Models
         public List<Match> matches { get; set; }
         public Attribution attribution { get; set; }
         public List<LocationSuggestion> location_suggestions { get; set; }
+        public List<Restaurant> restaurants { get; set; }
     }
 }

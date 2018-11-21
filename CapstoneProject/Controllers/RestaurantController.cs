@@ -14,6 +14,8 @@ namespace CapstoneProject.Controllers
     {
         public static HttpClient client;
         public static string cityRequest = "https://developers.zomato.com/api/v2.1/cities?q=";
+        public static string vegRestaurantsRequestFirst = "https://developers.zomato.com/api/v2.1/search?entity_id=";
+        public static string vegRestaurantsRequestSecond = "&entity_type=city&cuisines=308";
 
         public RestaurantController()
         {
@@ -31,7 +33,9 @@ namespace CapstoneProject.Controllers
         public IActionResult Index([Bind("CitySearchKeyword")] City city)
         {
             city.CityId = GetCityId(city.CitySearchKeyword).Result;
-            return View();
+            string vegRestaurantsRequestFull = vegRestaurantsRequestFirst + city.CityId + vegRestaurantsRequestSecond;
+            var restaurants = GetVegRestaurants(vegRestaurantsRequestFull);
+            return View(); // 
         }
 
         static async Task<int> GetCityId(string searchKeyWord)
@@ -47,6 +51,20 @@ namespace CapstoneProject.Controllers
                 cityId = cityIdHolder.location_suggestions.FirstOrDefault().id;
             }
             return cityId;
+        }
+
+        static async Task<RootObject> GetVegRestaurants(string path)
+        {
+            RootObject allMatches = new RootObject();
+            HttpResponseMessage response = await client.GetAsync(path);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                //Recipe recipe = await response.Content.ReadAsAsync<Recipe>();
+                allMatches = JsonConvert.DeserializeObject<RootObject>(result); //response.Content.ReadAsAsync<Recipe>();
+            }
+            return allMatches;
         }
     }
 }
