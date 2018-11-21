@@ -18,14 +18,16 @@ namespace CapstoneProject.Controllers
     public class RecipeController : Controller
     {
         public static HttpClient client;
-        public string allRecipesPath;
-        public string recipePath;
+        public static string allRecipesPath;
+        public static string recipePathFirst;
+        public static string recipePathSecond;
 
         public RecipeController()
         {
             client = new HttpClient();
             allRecipesPath = "http://api.yummly.com/v1/api/recipes?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7&your_search_parameters=%26q=vegan%26allowedDiet[]=390^Vegan";
-            recipePath = "http://api.yummly.com/v1/api/recipe/Vegan-Curried-Rice-2319743?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7"; // needs to be updated for each recipe
+            recipePathFirst = "http://api.yummly.com/v1/api/recipe/";
+            recipePathSecond = "?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7"; 
         }
         public IActionResult Index()
         {
@@ -33,15 +35,23 @@ namespace CapstoneProject.Controllers
             return View(allRecipes.matches);
         }
 
-        static async Task<Recipe> GetRecipeAsync(string path)
+        public IActionResult GetRecipe(string id)
         {
-            Recipe recipe = null;
-            HttpResponseMessage response = await client.GetAsync(path);
+            var url = GetRecipeUrl(id).Result;
+            return Redirect(url);
+        }
+
+        static async Task<string> GetRecipeUrl(string id)
+        {
+            string fullRecipePath = recipePathFirst + id + recipePathSecond;            
+            HttpResponseMessage response = await client.GetAsync(fullRecipePath);
+            RootObject recipeUrlHolder = new RootObject();
             if (response.IsSuccessStatusCode)
             {
-                recipe = await response.Content.ReadAsAsync<Recipe>();
+                var result = response.Content.ReadAsStringAsync().Result;
+                recipeUrlHolder = JsonConvert.DeserializeObject<RootObject>(result); 
             }
-            return recipe;
+            return recipeUrlHolder.attribution.url;
         }
 
         static async Task<RootObject> GetAllRecipes(string path)

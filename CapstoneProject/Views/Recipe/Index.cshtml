@@ -23,14 +23,14 @@
 
                 <tr>
                     <td>
-                        <a asp-action="Index"><img src="@item.smallImageUrls.First()" /></a>
-                        
+                        <a asp-action="GetRecipeAsync" asp-route-id="@item.id"><img src="@item.smallImageUrls.First()" /></a>                        
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.recipeName)
                     </td>                   
                     <td>
-                        (Link to Add to my Recipes)
+                        (ADD Link to Add to my Recipes)
+                        @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = item.id }, new { @class = "btn btn-primary btn-large" })
                     </td>
                 </tr>
             }

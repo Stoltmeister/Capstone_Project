@@ -7,6 +7,7 @@ namespace CapstoneProject.Models
 {
     public class RootObject
     {        
-        public List<Match> matches { get; set; }        
+        public List<Match> matches { get; set; }
+        public Attribution attribution { get; set; }
     }
 }
