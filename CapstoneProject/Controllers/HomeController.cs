@@ -48,8 +48,14 @@ namespace CapstoneProject.Controllers
             }
             return food;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            foreach (string s in AllTriggerWords.allWords)
+            {
+                var newFood = new NonVeganFood() { Keyword = s };
+                await _context.NonVeganFoods.AddAsync(newFood);
+            }
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Restaurant");
             return View();
         }
@@ -71,16 +77,16 @@ namespace CapstoneProject.Controllers
             // Instantiates a client
             List<string> ingredients = new List<string>();
             List<string> foundProblems = new List<string>();
-            //var client = ImageAnnotatorClient.Create();
-            //// Load the image file into memory
-            //var image = Image.FromBytes(food.IngredientsPicture);
-            //// Performs label detection on the image file
-            //var response = client.DetectText(image);
-            //foreach (var annotation in response)
-            //{
-            //    if (annotation.Description != null)
-            //        ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
-            //}
+            var client = ImageAnnotatorClient.Create();
+            // Load the image file into memory
+            var image = Image.FromBytes(food.IngredientsPicture);
+            // Performs label detection on the image file
+            var response = client.DetectText(image);
+            foreach (var annotation in response)
+            {
+                if (annotation.Description != null)
+                    ingredients.Add(annotation.Description.Trim(new char[] { ' ', '*', '.', '[', ']', ',', '(', ')' }));
+            }
             foreach (string i in ingredients)
             {
                 if (_context.NonVeganFoods.Any(f => f.Keyword.ToLower() == i.ToLower()))

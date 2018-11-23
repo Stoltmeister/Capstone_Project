@@ -34,8 +34,9 @@ namespace CapstoneProject.Controllers
         {
             city.CityId = GetCityId(city.CitySearchKeyword).Result;
             string vegRestaurantsRequestFull = vegRestaurantsRequestFirst + city.CityId + vegRestaurantsRequestSecond;
-            var restaurants = GetVegRestaurants(vegRestaurantsRequestFull);
-            return View(); // 
+            var rootObject = GetVegRestaurants(vegRestaurantsRequestFull);
+            var restaurants = rootObject.Result.restaurants.Select(r => r.restaurant).ToList();
+            return View("RestaurantList", restaurants); // 
         }
 
         static async Task<int> GetCityId(string searchKeyWord)
