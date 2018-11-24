@@ -49,13 +49,7 @@ namespace CapstoneProject.Controllers
             return food;
         }
         public async Task<IActionResult> Index()
-        {
-            foreach (string s in AllTriggerWords.allWords)
-            {
-                var newFood = new NonVeganFood() { Keyword = s };
-                await _context.NonVeganFoods.AddAsync(newFood);
-            }
-            await _context.SaveChangesAsync();
+        {            
             return RedirectToAction("Index", "Restaurant");
             return View();
         }

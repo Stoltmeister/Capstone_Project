@@ -8,5 +8,6 @@ namespace CapstoneProject.Models
     public class LocationSuggestion
     {
         public int id { get; set; }
+        // user submitted eatery class
     }
 }

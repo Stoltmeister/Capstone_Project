@@ -11,5 +11,6 @@ namespace CapstoneProject.Models
         public string name { get; set; }
         public string cuisines { get; set; }
         public string url { get; set; }
+        public Location Location { get; set; }
     }
 }

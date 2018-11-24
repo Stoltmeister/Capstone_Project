@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CapstoneProject.MultiPinMap.PinData>
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+<div id="map"></div>
+<script src="~/js/GoogleMaps.js"></script>
+<script>
+    function mapCallback() {
+        @{
+            try
+            {
+                @:var mapCenterLatitude = @Model.First().Latitude;
+                @:var mapCenterLongitude = @Model.First().Longitude;
+            }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
+
+        }
+        var map = initMap(mapCenterLatitude, mapCenterLongitude);
+        @{
+            foreach(var pin in Model)
+            {
+                @: var description = "<p>@pin.Address</p><p>@pin.RestaurantName</p>"
+                @:addMarker(@pin.Latitude, @pin.Longitude, "@pin.RestaurantName", description, map);
+            }
+        }
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=@ApiKeys.GoogleMapKey&callback=mapCallback"
+        async defer></script>
