@@ -22,6 +22,7 @@ namespace CapstoneProject.Data
         public DbSet<CapstoneProject.Models.Recipe> Recipe { get; set; }
         public DbSet<CapstoneProject.Models.City> City { get; set; }
         public DbSet<CapstoneProject.Models.Restaurant2> Restaurant2 { get; set; }
+        public DbSet<CapstoneProject.Models.Article> Article { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);

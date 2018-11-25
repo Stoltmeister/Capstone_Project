@@ -50,7 +50,7 @@ namespace CapstoneProject.Controllers
         }
         public async Task<IActionResult> Index()
         {            
-            return RedirectToAction("Index", "Restaurant");
+            return RedirectToAction("News", "Social");
             return View();
         }
 
