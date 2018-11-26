@@ -4,7 +4,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CapstoneProject.Data;
+using CapstoneProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 
 namespace CapstoneProject.Controllers
 {
@@ -25,14 +27,40 @@ namespace CapstoneProject.Controllers
         }
 
         public IActionResult Index()
-        {            
-            return View();
+        {
+            return View("RecommendedSocials");
         }
         public IActionResult WeeklyEmail()
         {
             return View();
         }
 
+        public IActionResult GetCharge()
+        {
+            return View("StripeCharge");
+        }
+        [HttpPost]
+        public IActionResult Charge(string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Sample Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+            // ADD Content to Sponsered Section
+            return View("ChargeConfirmation");
+        }
         [HttpPost]
         public async Task<IActionResult> WeeklyEmail(string email)
         {

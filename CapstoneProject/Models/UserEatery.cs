@@ -18,8 +18,11 @@ namespace CapstoneProject.Models
         public string Address { get; set; }
         public int ZipCode { get; set; }
         public string Description { get; set; }
+        [Display(Name ="Vegan?")]
         public bool IsVegan { get; set; }
+        [Display(Name = "Vegetarian?")]
         public bool IsVegetarian { get; set; }
+        [Display(Name = "Has Vegan Options?")]
         public bool HasVeganOptions { get; set; }
     }
 }

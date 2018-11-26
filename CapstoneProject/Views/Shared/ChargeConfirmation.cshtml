@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "ChargeConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>You successfully paid <strong>$5.00</strong></h2>
+<br />
+
+@Html.ActionLink("Return", "RecommendedSocials", "Social", new { }, new { @class = "btn btn-primary btn-large" })
