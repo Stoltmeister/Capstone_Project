@@ -53,7 +53,8 @@ namespace CapstoneProject.Controllers
             //VeganFood veganFood = new VeganFood() { Name = "Hummus", Description = "Yummy", URL = "www.google.com" };
             //await _context.VeganFoods.AddAsync(veganFood);
             //await _context.SaveChangesAsync();
-            //return RedirectToAction("WeeklyEmail", "Social");
+            return RedirectToAction("VeganSubs", "Recipe");
+            
             return View();
         }
 

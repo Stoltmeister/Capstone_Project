@@ -35,6 +35,7 @@ namespace CapstoneProject.Controllers
             string vegRestaurantsRequestFull = vegRestaurantsRequestFirst + city.CityId + vegRestaurantsRequestSecond;
             var rootObject = GetVegRestaurants(vegRestaurantsRequestFull);
             var restaurants = rootObject.Result.restaurants.Select(r => r.restaurant).ToList();
+            ViewBag.CityName = city.CitySearchKeyword;
             return View("RestaurantList", restaurants); // 
         }
 
