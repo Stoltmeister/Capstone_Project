@@ -1,0 +1,37 @@
+﻿@model CapstoneProject.Models.StandardUser
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<div>
+    <h4>Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGettingWeeklyEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsGettingWeeklyEmail)
+        </dd>
+    </dl>
+    @if (Model.IsGettingWeeklyEmail == false)
+    {
+        @Html.ActionLink("Get Weekly Emails!", "WeeklyEmail", "Social", new { }, new { @class = "btn btn-primary btn-large" })
+        <br /> <br />
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

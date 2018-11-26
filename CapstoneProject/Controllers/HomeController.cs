@@ -49,8 +49,11 @@ namespace CapstoneProject.Controllers
             return food;
         }
         public async Task<IActionResult> Index()
-        {            
-            return RedirectToAction("Index", "Restaurant");
+        {
+            //VeganFood veganFood = new VeganFood() { Name = "Hummus", Description = "Yummy", URL = "www.google.com" };
+            //await _context.VeganFoods.AddAsync(veganFood);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction("WeeklyEmail", "Social");
             return View();
         }
 
@@ -144,11 +147,10 @@ namespace CapstoneProject.Controllers
             var allFoods = _context.UserFoods.Select(f => f.Food).ToList();
             return View(allFoods);
         }
-        public IActionResult About()
+        public IActionResult Profile()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var standardUser = _context.StandardUsers.Where(u => u.Id == GetStandardUserId()).FirstOrDefault();
+            return View(standardUser);
         }
 
         public IActionResult Contact()

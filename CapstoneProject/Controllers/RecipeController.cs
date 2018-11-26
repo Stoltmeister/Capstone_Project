@@ -25,7 +25,7 @@ namespace CapstoneProject.Controllers
         public RecipeController()
         {
             client = new HttpClient();
-            allRecipesPath = "http://api.yummly.com/v1/api/recipes?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7&q=vegan&requirePictures=true&allowedDiet[]=390^Vegan";
+            allRecipesPath = "http://api.yummly.com/v1/api/recipes?_" + ApiKeys.YummlyKey + "&q=vegan&requirePictures=true&allowedDiet[]=390^Vegan"; //make sure works
             recipePathFirst = "http://api.yummly.com/v1/api/recipe/";
             recipePathSecond = "?_app_id=28617fc5&_app_key=df6233710c74240b01112e7d72bb51a7"; 
         }

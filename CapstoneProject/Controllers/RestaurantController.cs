@@ -19,9 +19,8 @@ namespace CapstoneProject.Controllers
 
         public RestaurantController()
         {
-            client = new HttpClient();
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("user-key", "0261361a94af6518badc3cb536e33acd");
-            client.DefaultRequestHeaders.Add("user-key", "0261361a94af6518badc3cb536e33acd");
+            client = new HttpClient();            
+            client.DefaultRequestHeaders.Add("user-key", ApiKeys.ZomatoKey); //test
         }
 
         public IActionResult Index()
