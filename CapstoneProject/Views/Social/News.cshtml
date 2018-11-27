@@ -4,8 +4,9 @@
     ViewData["Title"] = "News";
 }
 
-<h2>Vegan News</h2>
+<h2>Vegan News Board</h2>
 <p>Powered By <a href="newsapi.org">newsapi.org</a></p>
+<h5>Results From the past month</h5>
 @{
     for (int i = 0; i < Model.Count(); i += 4)
     {
