@@ -49,6 +49,7 @@ namespace CapstoneProject
             public string Address { get; set; }
             public float Latitude { get; set; }
             public float Longitude { get; set; }
+            public string Url { get; set; }
 
             public PinData(string iconUrl, Restaurant2 restaurant)
             {               
@@ -58,6 +59,7 @@ namespace CapstoneProject
                 Address = restaurant.Location.address;
                 Latitude = float.Parse(restaurant.Location.latitude);
                 Longitude = float.Parse(restaurant.Location.longitude);
+                Url = restaurant.url;
             }
         }
     }

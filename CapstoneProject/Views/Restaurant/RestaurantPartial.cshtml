@@ -1,0 +1,11 @@
+﻿@model CapstoneProject.Models.Restaurant2
+
+
+<div class="card" style="width: 100%;">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4>@Model.name</h4></li>
+        <li class="list-group-item"><b>Categories: </b>@Model.cuisines</li>
+        <li class="list-group-item"><b>Address: </b> @Model.Location.address</li>
+        <li class="list-group-item"><a target="_blank" rel="noopener noreferrer" href="@Model.url" class="btn btn-primary">More Info</a></li>
+    </ul>
+</div>
