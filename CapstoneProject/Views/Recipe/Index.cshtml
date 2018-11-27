@@ -19,20 +19,27 @@
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {                
-
-                <tr>
+            {
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@item.smallImageUrls.First()" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.recipeName)</h5>
+                        <p class="card-text">@item.ingredients</p>
+                        @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = item.id }, new { @class = "btn btn-primary btn-large" })
+                    </div>
+                </div>
+                @*<tr>
                     <td>
-                        <a asp-action="GetRecipeAsync" asp-route-id="@item.id"><img src="@item.smallImageUrls.First()" /></a>                        
+                        <a asp-action="GetRecipeAsync" asp-route-id="@item.id"><img src="@item.smallImageUrls.First()" /></a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.recipeName)
-                    </td>                   
+                    </td>
                     <td>
                         (ADD Link to Add to my Recipes)
                         @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = item.id }, new { @class = "btn btn-primary btn-large" })
                     </td>
-                </tr>
+                </tr>*@
             }
         </tbody>
     </table>
