@@ -35,8 +35,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="CheckIngredients">Check Ingredients</a></li>
                     @if (User.IsInRole("Standard"))
                     {
-                        <li><a asp-area="" asp-controller="Home" asp-action="UserFoods">My Foods</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="AllFoods">All Checked Foods</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="UserFoods">My Foods</a></li>                        
                     }
                     <li><a asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>
                     <li><a asp-area="" asp-controller="Restaurant" asp-action="Index">Food Near Me</a></li>

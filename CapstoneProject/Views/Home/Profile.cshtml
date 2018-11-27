@@ -19,7 +19,7 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IsGettingWeeklyEmail)
+            Getting Emails
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IsGettingWeeklyEmail)
@@ -30,8 +30,4 @@
         @Html.ActionLink("Get Weekly Emails!", "WeeklyEmail", "Social", new { }, new { @class = "btn btn-primary btn-large" })
         <br /> <br />
     }
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
