@@ -4,7 +4,7 @@
     ViewData["Title"] = "View";
 }
 
-<h2>View</h2>
+<h2>Restaurants with vegetarian/vegan options near @ViewBag.CityName</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -39,7 +39,7 @@
                         @Html.DisplayFor(modelItem => item.cuisines)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.url)
+                        <a href=@item.url>More Info</a>
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

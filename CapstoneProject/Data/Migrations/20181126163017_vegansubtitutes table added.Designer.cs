@@ -4,14 +4,16 @@ using CapstoneProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CapstoneProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181126163017_vegansubtitutes table added")]
+    partial class vegansubtitutestableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,34 +73,6 @@ namespace CapstoneProject.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("StandardUsers");
-                });
-
-            modelBuilder.Entity("CapstoneProject.Models.UserEatery", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("Description");
-
-                    b.Property<bool>("HasVeganOptions");
-
-                    b.Property<bool>("IsVegan");
-
-                    b.Property<bool>("IsVegetarian");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("StandardUserId");
-
-                    b.Property<int>("ZipCode");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StandardUserId");
-
-                    b.ToTable("UserEateries");
                 });
 
             modelBuilder.Entity("CapstoneProject.Models.UserFood", b =>
@@ -331,13 +305,6 @@ namespace CapstoneProject.Data.Migrations
                     b.HasOne("CapstoneProject.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("CapstoneProject.Models.UserEatery", b =>
-                {
-                    b.HasOne("CapstoneProject.Models.StandardUser", "StandardUser")
-                        .WithMany()
-                        .HasForeignKey("StandardUserId");
                 });
 
             modelBuilder.Entity("CapstoneProject.Models.UserFood", b =>

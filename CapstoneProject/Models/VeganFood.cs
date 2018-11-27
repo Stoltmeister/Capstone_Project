@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace CapstoneProject.Models
 {
-    public class VeganSubstitutes
+    public class VeganFood
     {
         [Key]
         public string Id { get; set; }
-        public string NonVeganIngredient { get; set; }
-        public List<string> VeganSubs { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public string Description { get; set; }
     }
 }
