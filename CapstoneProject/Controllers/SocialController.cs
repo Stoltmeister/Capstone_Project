@@ -7,10 +7,7 @@ using CapstoneProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using CapstoneProject.Data;
-using CapstoneProject.Models;
-using Microsoft.AspNetCore.Mvc;
 using Stripe;
 
 namespace CapstoneProject.Controllers
