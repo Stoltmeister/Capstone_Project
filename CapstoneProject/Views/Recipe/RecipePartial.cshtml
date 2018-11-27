@@ -1,0 +1,13 @@
+﻿@model CapstoneProject.Models.Match
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="card" style="width: 100%; padding-bottom: 15px;">
+    <img class="card-img-top" src="@Model.smallImageUrls.First()" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@Model.recipeName</h5>       
+        @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = Model.id }, new { @class = "btn btn-primary btn-large" })
+    </div>
+</div>
+

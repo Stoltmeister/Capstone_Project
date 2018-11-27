@@ -1,46 +1,25 @@
 ﻿@model IEnumerable<CapstoneProject.Models.Match>
-    @{
-        ViewData["Title"] = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 0;
+}
 
-    <h2>Index</h2>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Picture
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.recipeName)
-                </th>                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="@item.smallImageUrls.First()" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.recipeName)</h5>
-                        <p class="card-text">@item.ingredients</p>
-                        @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = item.id }, new { @class = "btn btn-primary btn-large" })
+<h2>Vegan Recipes</h2>
+<p>(Powered by Yummly)</p>
+@{
+    for (int i = 0; i < Model.Count(); i += 3)
+    {
+        <div class="row">
+            @{
+                for (int j = 0; j <= 3; j++)
+                {
+                    @if (i + j == Model.Count()) { break; }
+                    <div class="col-sm-3">
+                        @Html.Partial("RecipePartial", Model.ElementAt(i + j))
                     </div>
-                </div>
-                @*<tr>
-                    <td>
-                        <a asp-action="GetRecipeAsync" asp-route-id="@item.id"><img src="@item.smallImageUrls.First()" /></a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.recipeName)
-                    </td>
-                    <td>
-                        (ADD Link to Add to my Recipes)
-                        @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = item.id }, new { @class = "btn btn-primary btn-large" })
-                    </td>
-                </tr>*@
+                }
             }
-        </tbody>
-    </table>
-
+        </div>
+    }
+}

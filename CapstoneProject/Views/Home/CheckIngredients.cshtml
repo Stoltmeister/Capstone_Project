@@ -4,16 +4,15 @@
     ViewData["Title"] = "CheckIngredients";
 }
 
-<h2>CheckIngredients</h2>
-
-<h4>Food</h4>
+<h2>Check Ingredients</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4">        
         <form asp-action="CheckIngredients" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">                
-                <label asp-for="IngredientsPicture" class="control-label"></label>
+            <div class="form-group">
+                <label>Ingredients Picture</label>
+                <p>Please choose a clear picture of the ingredient list of the product you would like to check.</p>
                 <input name="picture" type="file" id="IngredientsPicture" asp-for="IngredientsPicture" />
                 <span asp-validation-for="IngredientsPicture" class="text-danger"></span>
             </div>
@@ -28,14 +27,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>*@            
             <div class="form-group">
-                <input type="submit" value="Upload" class="btn btn-default" />
+                <input type="submit" value="Upload" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Return</a>
 </div>
 
 @section Scripts {
