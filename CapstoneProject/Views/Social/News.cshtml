@@ -4,62 +4,22 @@
     ViewData["Title"] = "News";
 }
 
-<h2>News</h2>
+<h2>Vegan News</h2>
+<p>Powered By <a href="newsapi.org">newsapi.org</a></p>
+@{
+    for (int i = 0; i < Model.Count(); i += 4)
+    {
+        <div class="row">
+                @{
+                    for (int j = 0; j <= 3; j++)
+                    {
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.url)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.urlToImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.content)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.url)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.urlToImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.content)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
+                        @if (i + j == Model.Count()) { break; }
+                        <div class="col-sm-4">
+                            @Html.Partial("NewsPartial", Model.ElementAt(i + j))
+                        </div>
+                    }
+                }
+            </div>
+    }
 }
-    </tbody>
-</table>

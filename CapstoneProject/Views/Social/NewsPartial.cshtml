@@ -1,0 +1,13 @@
+﻿@model CapstoneProject.Models.Article
+
+<div class="card" style="width: 100%; padding-bottom: 15px; display: block">
+    <img class="card-img-top" src="@Model.urlToImage" alt="Card image cap" style="width: inherit;">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><label>@Model.title</label></li>
+            <li class="list-group-item">Author: @Model.author</li>
+            <li class="list-group-item">@Model.description</li>
+            <li class="list-group-item"><a href="@Model.url" class="btn btn-primary">Full Article</a></li>
+        </ul>
+    </div>
+</div>
