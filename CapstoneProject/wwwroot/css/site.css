@@ -3,7 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: linear-gradient(to bottom right, #79d279, #53c653);
+    background-image: linear-gradient(to bottom right, #9fdf9f, #79d279);
 }
 
 /* Wrapping element */
@@ -12,7 +12,7 @@ body {
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    background-image: linear-gradient(to bottom right, #79d279, #53c653);
+    background-image: linear-gradient(to bottom right, #9fdf9f, #79d279);
 }
 
 /* Carousel */

@@ -70,13 +70,7 @@ namespace CapstoneProject.Controllers
             var standardUserId = _context.StandardUsers.Where(s => s.ApplicationUserId == userId).Select(u => u.Id).Single();
             return standardUserId;
         }
-
         
-        public IActionResult WeeklyEmail()
-        {
-            return View();
-        }
-
         public IActionResult GetCharge()
         {
             return View("StripeCharge");
@@ -103,16 +97,17 @@ namespace CapstoneProject.Controllers
             // ADD Content to Sponsered Section
             return View("ChargeConfirmation");
         }
-        [HttpPost]
-        public async Task<IActionResult> WeeklyEmail(string email)
+        
+        public async Task<IActionResult> WeeklyEmail()
         {
             // only logged in users
+            var usersEmail = _context.StandardUsers.Where(u => u.Id == GetStandardUserId()).Select(u => u.Email).FirstOrDefault();
             var random = new Random();
             var allFoods = _context.VeganFoods.ToList();
             var randomFood = allFoods.ElementAt(random.Next(allFoods.Count() - 1)); //check for empty
             string subject = "Weekly Vegan Dish";
             string body = "Your food to try this week is " + randomFood.Name + "! " + randomFood.Description + " Check out the recipe here: " + randomFood.URL;
-            await Sendgrid.SendMail(email, subject, body);
+            await Sendgrid.SendMail(usersEmail, subject, body);
             var user = _context.StandardUsers.Where(u => u.Id == GetStandardUserId()).FirstOrDefault();
             user.IsGettingWeeklyEmail = true;
             await _context.SaveChangesAsync();
