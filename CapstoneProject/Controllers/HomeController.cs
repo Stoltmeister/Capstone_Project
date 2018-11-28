@@ -49,12 +49,7 @@ namespace CapstoneProject.Controllers
             return food;
         }
         public async Task<IActionResult> Index()
-        {
-            //VeganFood veganFood = new VeganFood() { Name = "Hummus", Description = "Yummy", URL = "www.google.com" };
-            //await _context.VeganFoods.AddAsync(veganFood);
-            //await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Social");
-            
+        {             
             return View();
         }
 
