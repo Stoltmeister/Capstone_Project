@@ -32,18 +32,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="CheckIngredients">Check Ingredients</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="CheckIngredients">Check Food</a></li>
                     @if (User.IsInRole("Standard"))
-                    {
-                        <li><a asp-area="" asp-controller="Home" asp-action="UserFoods">My Foods</a></li>
-                    }
-                    else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="UserFoods">Saved Foods</a></li>
                     }
                     <li><a asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>
                     <li><a asp-area="" asp-controller="Restaurant" asp-action="Index">Food Near Me</a></li>
-                    <li><a asp-area="" asp-controller="Social" asp-action="News">Vegan News</a></li>
+                    <li><a asp-area="" asp-controller="Social" asp-action="Index">Vegan Pages</a></li>
+                    <li><a asp-area="" asp-controller="Social" asp-action="News">News</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
