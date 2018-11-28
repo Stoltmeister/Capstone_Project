@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CapstoneProject.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Stripe;
 
 namespace CapstoneProject
 {
@@ -86,6 +87,7 @@ namespace CapstoneProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            StripeConfiguration.SetApiKey("sk_test_Jlew9ceAAyewSm37S0p88q00");
         }
     }
 }

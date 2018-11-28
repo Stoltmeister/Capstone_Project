@@ -9,6 +9,8 @@
 <p>
     (Powered by Zomato)
 </p>
+@Html.ActionLink("User Submitted Eats", "ShowUserEateries", "Restaurant", new { }, new { @class = "btn btn-primary btn-large" })
+<br /><br />
 <div class="row" style="padding-bottom: 20px;">
     @await Component.InvokeAsync("MultiPinMap", new { restaurants = Model })
 </div>

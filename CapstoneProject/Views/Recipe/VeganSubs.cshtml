@@ -7,17 +7,14 @@
 
 <h2>VeganSubs</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NonVeganIngredient)
+                <h3>Original Ingredient</h3> 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VeganSubsDescription)
+                <h3>Vegan Substitute</h3>
             </th>
             <th></th>
         </tr>
@@ -26,10 +23,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NonVeganIngredient)
+                <h4>@Html.DisplayFor(modelItem => item.NonVeganIngredient)</h4>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VeganSubsDescription)
+                <h4>@Html.DisplayFor(modelItem => item.VeganSubsDescription) </h4>
             </td>
         </tr>
 }

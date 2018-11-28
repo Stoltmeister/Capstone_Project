@@ -1,23 +1,33 @@
-﻿
+﻿@model CapstoneProject.Models.Sponsor
 @{
     ViewData["Title"] = "RecommendedSocials";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="text-align:center;padding-bottom:15px;padding-top:15px;">Recommended Socials</h2>
 <div class="container">
-    <div class="row">
-        <div class="card border-danger mb-3 text-center" style="width: 100%;padding-bottom:10px;">
-            <div class="card-body">
-                <h4 class="card-title" style="text-align:center">Sponsered</h4>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
+    <h2 style="text-align:center;padding-bottom:15px;padding-top:15px;">Recommended Socials</h2>
+    @if (Model.id == null)
+    {
+        <div align="center" style="padding-bottom:20px;">
+            @Html.ActionLink("Feature Content Here", "GetCharge", "Social", new { }, new { @class = "btn btn-primary btn-large" })
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="card border-danger mb-3 text-center" style="width: 100%;padding-bottom:10px;">
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align:center">Sponsered</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@Model.Name</li>
+                        <li class="list-group-item">@Model.Description</li>
+                        <li class="list-group-item"><a target="_blank" rel="noopener noreferrer" href="@Model.ContentUrl"
+   class="btn btn-primary">Check it out!</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    }
     <div class="row">
         <div class="col-sm-6">
             <div class="card border-danger mb-3 text-center" style="width: 100%;padding-bottom:20px;">
@@ -32,7 +42,12 @@
                             <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/qOgYX6Jqhl8"
                                class="btn btn-primary">Name the Trait Argument</a>
                         </li>
-                        <li class="list-group-item"></li>
+                        <li class="list-group-item"><h4>Recipes</h4></li>
+
+                        <li class="list-group-item">
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCEjkioV3LO_OIUaSWRxFZ3As"
+                               class="btn btn-primary">Cheap Lazy Vegan</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -45,10 +60,14 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><h4>Recipes</h4></li>
                         <li class="list-group-item">
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bestofvegan/?hl=en" class="btn btn-primary">Cool link</a>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/veganrecipescom/?hl=en" class="btn btn-primary">Cool link</a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bestofvegan/?hl=en" class="btn btn-primary">Best of Vegan</a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/veganrecipescom/?hl=en" class="btn btn-primary">VeganRecipesCom</a>
+                        </li> 
+                        <li class="list-group-item"><h4>Fitness</h4></li>
+                        <li class="list-group-item">
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/brianturnerofficial/?hl=en"
+                               class="btn btn-primary">Brian Turner</a>
                         </li>
-                        <li class="list-group-item">Vestibulum at eros</li>
                     </ul>
                 </div>
             </div>
@@ -82,12 +101,18 @@
                 <div class="card-body">
                     <h3 class="card-title" style="text-align:center">Websites and Forums</h3>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h4>Recipes</h4></li>
+                        <li class="list-group-item"><h4>Memes</h4></li>
                         <li class="list-group-item">
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bestofvegan/?hl=en" class="btn btn-primary">Cool link</a>
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/veganrecipescom/?hl=en" class="btn btn-primary">Cool link</a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/r/vegan/" class="btn btn-primary">Reddit</a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/veganmemesofficial/?hl=en" class="btn btn-primary">Vegan Memes Instagram</a>
                         </li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item"><h4>Misc Great Sites</h4></li>
+                        <li class="list-group-item">
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.happycow.net/"
+                               class="btn btn-primary">Happy Cow</a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.vegansociety.com/go-vegan/how-go-vegan"
+                               class="btn btn-primary">Vegan Society</a>
+                        </li>
                     </ul>
                 </div>
             </div>

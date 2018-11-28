@@ -11,7 +11,7 @@
         <form asp-action="CheckIngredients" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
             <div class="form-group">
-                <h4 style="padding-bottom:15px;">Please choose a clear picture of the ingredient list of the food </h4>
+                <h4 style="padding-bottom:15px;line-height:24px;">Please choose a clear picture of the food's ingredient list.</h4>
                 <input name="picture" type="file" id="IngredientsPicture" asp-for="IngredientsPicture" />
                 <span asp-validation-for="IngredientsPicture" class="text-danger"></span>
             </div>

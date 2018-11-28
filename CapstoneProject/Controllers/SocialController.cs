@@ -31,7 +31,14 @@ namespace CapstoneProject.Controllers
 
         public IActionResult Index()
         {
-            return View("RecommendedSocials");
+            var allSponsors = _context.Sponsors.ToList();
+            var currentSponsor = new Sponsor();
+            if (allSponsors.Count() > 0)
+            {
+                currentSponsor = allSponsors.Where(s => s.SponsorDay.AddMonths(1) > DateTime.Today).SingleOrDefault();
+            }
+            
+            return View("RecommendedSocials", currentSponsor);
         }
 
         public IActionResult News()
@@ -70,7 +77,24 @@ namespace CapstoneProject.Controllers
             var standardUserId = _context.StandardUsers.Where(s => s.ApplicationUserId == userId).Select(u => u.Id).Single();
             return standardUserId;
         }
-        
+
+        public IActionResult GetSponsor()
+        {
+            //only for logged in users
+            Sponsor sponsor = new Sponsor();
+            return View(sponsor);
+        }
+
+        [HttpPost]
+        public IActionResult GetSponsor([Bind("Name,Description,ContentUrl,ImageUrl")] Sponsor sponsor)
+        {
+            sponsor.SponsorDay = DateTime.Today;
+            // add sponsor to database
+            _context.Sponsors.Add(sponsor);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         public IActionResult GetCharge()
         {
             return View("StripeCharge");
@@ -95,7 +119,7 @@ namespace CapstoneProject.Controllers
                 CustomerId = customer.Id
             });
             // ADD Content to Sponsered Section
-            return View("ChargeConfirmation");
+            return RedirectToAction("GetSponsor");
         }
         
         public async Task<IActionResult> WeeklyEmail()

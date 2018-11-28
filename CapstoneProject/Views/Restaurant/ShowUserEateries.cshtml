@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShowUserEateries</h2>
+<h2>User Eateries</h2>
 
 <p>
     @if (User.IsInRole("Standard"))
     {
-        <a asp-action="AddEatery">Add an eatery</a>
+        <a asp-action="AddEatery" class="btn btn-primary">Add an eatery</a>
     }
 </p>
 <div class="row">
@@ -18,22 +18,22 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                   <h4> @Html.DisplayNameFor(model => model.Name) </h4>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address)
+                    <h4> @Html.DisplayNameFor(model => model.Address) </h4>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    <h4> @Html.DisplayNameFor(model => model.Description) </h4>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsVegan)
+                    <h4> @Html.DisplayNameFor(model => model.IsVegan) </h4>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsVegetarian)
+                    <h4> @Html.DisplayNameFor(model => model.IsVegetarian) </h4>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HasVeganOptions)
+                    <h4> @Html.DisplayNameFor(model => model.HasVeganOptions) </h4>
                 </th>
                 <th></th>
             </tr>
@@ -43,27 +43,22 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                       <h5> @Html.DisplayFor(modelItem => item.Name) </h5>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Address)
+                        <h5> @Html.DisplayFor(modelItem => item.Address) </h5>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        <h5> @Html.DisplayFor(modelItem => item.Description) </h5>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsVegan)
+                        <h5> @Html.DisplayFor(modelItem => item.IsVegan) </h5>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsVegetarian)
+                        <h5> @Html.DisplayFor(modelItem => item.IsVegetarian) </h5>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HasVeganOptions)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <h5> @Html.DisplayFor(modelItem => item.HasVeganOptions) </h5>
                     </td>
                 </tr>
             }
