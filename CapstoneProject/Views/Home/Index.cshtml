@@ -10,28 +10,29 @@
         </div>
 
         <div align="center">
-            <img src="~/images/veganhomeimage.png" style="width:50%;height:75%;" />
+            <img src="~/images/HomePageImage.png" style="width:50%;height:75%;" />
         </div>
     </div>
     <div class="row">
         <div align="center">
             <div class="col-sm-4">
                 <h3>Check Ingredients</h3>
+                <p>📷 Take a picture of an long ingredient list and find out if its vegan or not.</p>
                 @Html.ActionLink("Start Checking", "CheckIngredients", "Home", new { }, new { @class = "btn btn-primary btn-large" })
             </div>
             <div class="col-sm-4">
                 <h3>Find Food Nearby</h3>
+                <p>📍 Search by city and find eateries with vegan/vegetarian options.</p>
                 @Html.ActionLink("Search my City", "Index", "Restaurant", new { }, new { @class = "btn btn-primary btn-large" })
             </div>
             <div class="col-sm-4">
                 <h3>Vegan Recipes</h3>
+                <p>🥑 Find your next favorite dish from Yummly's vegan recipes!</p>
                 @Html.ActionLink("Browse Recipes", "Index", "Recipe", new { }, new { @class = "btn btn-primary btn-large" })
             </div>
         </div>
     </div>
-        
-
-    </div>
+</div>
 
 
 

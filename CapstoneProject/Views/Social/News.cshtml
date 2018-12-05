@@ -3,14 +3,17 @@
 @{
     ViewData["Title"] = "News";
 }
-
-<h2>Vegan News Board</h2>
-<p>Powered By <a href="newsapi.org">newsapi.org</a></p>
-<h5>Results From the past month</h5>
+<div class="row">
+    <h2>Vegan News Board 📰</h2>
+    <p>Powered By <a href="newsapi.org">newsapi.org</a></p>
+    <h5>Results From the past month</h5>
+    <br />
+</div>
 @{
     for (int i = 0; i < Model.Count(); i += 4)
     {
         <div class="row">
+            <div class="card-group">
                 @{
                     for (int j = 0; j <= 3; j++)
                     {
@@ -21,6 +24,7 @@
                         </div>
                     }
                 }
+            </div>
             </div>
     }
 }
