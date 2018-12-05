@@ -5,22 +5,20 @@
 }
 
 <div class="card" style="width: 100%; padding-bottom: 15px;">
-    <img class="card-img-top" src="@pPic" alt="Card image cap" style="width: inherit">
+    <img class="card-img-top" src="@pPic" alt="Card image cap" style="width: auto; max-height:185px; margin-left:auto; margin-right:auto; display:block;">
     <div class="card-body">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><label>@Model.Name</label></li>
-            @if (Model.IsVegan)
-            {
-                <li class="list-group-item">
-                    <label class="label-success"><b>Vegan</b></label>
-                </li>
-            }
-            else
-            {
-                <li class="list-group-item">
-                    <label class="label-danger"><b>Not Vegan</b></label>
-                </li>
-            }
+            <li class="list-group-item">
+                <label>@Model.Name</label>
+                @if (Model.IsVegan)
+                {
+                    <span class="label label-pill label-success"><b>Vegan</b></span>
+                }
+                else
+                {
+                    <span class="label label-pill label-danger"><b>Not Vegan</b></span>
+                }
+            </li>            
             <li class="list-group-item">@Model.Notes</li>
         </ul>
     </div>

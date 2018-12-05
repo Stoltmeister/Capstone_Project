@@ -6,7 +6,12 @@
 <div class="card" style="width: 100%; padding-bottom: 15px;">
     <img class="card-img-top" src="@Model.smallImageUrls.First()" alt="Card image cap">
     <div class="card-body">
-        <h5 class="card-title">@Model.recipeName</h5>       
+        <h5 class="card-title">@Model.recipeName
+        @*@if(Model.recipeName.Length < 31)
+        {
+            <br /><br />
+        }*@
+        </h5>       
         @Html.ActionLink("Recipe Details", "GetRecipe", "Recipe", new { id = Model.id }, new { @class = "btn btn-primary btn-large" })
     </div>
 </div>
