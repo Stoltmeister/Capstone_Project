@@ -6,6 +6,10 @@ body {
     background-image: linear-gradient(to bottom right, #9fdf9f, #79d279);
 }
 
+#white-text {
+    text-shadow: white 0px 0px 10px;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
