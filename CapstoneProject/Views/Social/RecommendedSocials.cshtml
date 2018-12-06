@@ -14,16 +14,25 @@
     }
     else
     {
+       
+            var base64 = Convert.ToBase64String(Model.ContentImage);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
         <div class="row">
-            <div class="card border-danger mb-3 text-center" style="width: 100%;padding-bottom:10px;">
-                <div class="card-body">
-                    <h4 class="card-title" style="text-align:center">Sponsered</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">@Model.Name</li>
-                        <li class="list-group-item">@Model.Description</li>
-                        <li class="list-group-item"><a target="_blank" rel="noopener noreferrer" href="@Model.ContentUrl"
-   class="btn btn-primary">Check it out!</a></li>
-                    </ul>
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="card border-danger mb-3 text-center" style="width: 100%;padding-bottom:10px;">
+                    <img class="card-img-top" src="@imgSrc" alt="Card image cap" style="width: auto; max-height:185px; margin-left:auto; margin-right:auto; display:block;">
+                    <div class="card-body">
+                        <h4 class="card-title" style="text-align:center">Sponsered</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">@Model.Name</li>
+                            <li class="list-group-item">@Model.Description</li>
+                            <li class="list-group-item">
+                                <a target="_blank" rel="noopener noreferrer" href="@Model.ContentUrl"
+                                   class="btn btn-primary">Check it out!</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +71,7 @@
                         <li class="list-group-item">
                             <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bestofvegan/?hl=en" class="btn btn-primary">Best of Vegan</a>
                             <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/veganrecipescom/?hl=en" class="btn btn-primary">VeganRecipesCom</a>
-                        </li> 
+                        </li>
                         <li class="list-group-item"><h4>Fitness</h4></li>
                         <li class="list-group-item">
                             <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/brianturnerofficial/?hl=en"

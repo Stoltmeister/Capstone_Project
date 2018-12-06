@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using CapstoneProject.Data;
 using Stripe;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace CapstoneProject.Controllers
 {
@@ -86,9 +88,14 @@ namespace CapstoneProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetSponsor([Bind("Name,Description,ContentUrl,ImageUrl")] Sponsor sponsor)
+        public async Task<IActionResult> GetSponsor([Bind("Name,Description,ContentUrl")] Sponsor sponsor, IFormFile picture)
         {
             sponsor.SponsorDay = DateTime.Today;
+            using (var stream = new MemoryStream())
+            {
+                await picture.CopyToAsync(stream);
+                sponsor.ContentImage = stream.ToArray();
+            }
             // add sponsor to database
             _context.Sponsors.Add(sponsor);
             _context.SaveChanges();

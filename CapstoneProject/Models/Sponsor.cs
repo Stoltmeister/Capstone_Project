@@ -15,8 +15,8 @@ namespace CapstoneProject.Models
         public string Description { get; set; }
         [Display(Name = " Sponsered Content Link")]
         public string ContentUrl { get; set; }
-        [Display(Name = "Content Image Link")]
-        public string ImageUrl { get; set; }
+        [Display(Name = "Content Image")]
+        public byte[] ContentImage { get; set; }
         public DateTime SponsorDay { get; set; }
     }
 }
